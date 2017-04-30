@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Zine JS</title>
+  </head>
+  <body>
+    <style media="screen">
+      * {
+          overflow: hidden;
+          margin: 0;
+          padding: 0;
+       }
+
+       body {
+         background-color: darkslategrey;
+       }
+
+      .slide{
+        display: none;
+      }
+
+      .active {
+        display: block !important;
+      }
+
+      .slide-full {
+        width: 100%;
+        height: 100%;
+        display: none;
+        opacity: 1;
+        position: absolute;
+        margin: 0 auto;
+        box-sizing: border-box;
+        -webkit-transition:width 300ms ease-in-out, height 300ms ease-in-out, top 300ms ease-in-out, zoom 300ms ease-in-out;
+        -moz-transition:width 300ms ease-in-out, height 300ms ease-in-out, top 300ms ease-in-out, zoom 300ms ease-in-out;
+        -o-transition:width 300ms ease-in-out, height 300ms ease-in-out, top 300ms ease-in-out, zoom 300ms ease-in-out;
+        transition:width 300ms ease-in-out, height 300ms ease-in-out, top 300ms ease-in-out, zoom 300ms ease-in-out;
+      }
+
+      .type-image.slide-full .article-container {
+        top: 2em;
+        left: 8em;
+        right: 8em;
+        bottom: 2em;
+        padding: 2.5em;
+      }
+
+      .type-text.slide-full .article-container {
+        top: 2em;
+        left: 4em;
+        right: 4em;
+        bottom: 2em;
+        padding: 2.5em;
+      }
+
+      .slide-full .slideTitle {
+        font-size: 6vw;
+        padding: 0.3em;
+        -webkit-transition:font-size 300ms ease-in-out;
+        -moz-transition:font-size 300ms ease-in-out;
+        -o-transition:font-size 300ms ease-in-out;
+        transition:font-size 300ms ease-in-out;
+
+      }
+
+      .slide-full .slideContent {
+        font-size: 3vw;
+        -webkit-transition:font-size 300ms ease-in-out;
+        -moz-transition:font-size 300ms ease-in-out;
+        -o-transition:font-size 300ms ease-in-out;
+        transition:font-size 300ms ease-in-out;
+      }
+
+      .slide-full .article-container {
+        background-color: rgba(255,255,255,0.75);
+        top: 4em;
+        left: 6em;
+        right: 6em;
+        bottom: 4em;
+      }
+
+      .slide-full .active {
+        display: block;
+      }
+
+      .article-container {
+        position: absolute;
+        top: 10%;
+        left: 25%;
+        right: 25%;
+        bottom: 10%;
+        padding: 1em;
+        text-align: center;
+        border-radius: 10px;
+        border: #A29F00 solid 2px;
+        overflow: hidden;
+        background-color: rgba(255,255,255,1);
+      }
+
+      .article-container img {
+        height: 97%;
+        padding: 2em;
+        box-sizing: border-box;
+      }
+
+      .square {
+        display: block;
+        position: absolute;;
+        margin: inherit;
+        padding: 2.5em;
+        box-sizing: border-box;
+      }
+
+      .square .slideTitle{
+        font-size: 1.5vw;
+      }
+
+      .square .slideContent{
+        font-size: 0.6vw;
+      }
+
+      .imgContainer {
+        top: 0;
+        bottom: -18px;
+        left: 0;
+        right: 0;
+        position: inherit;
+      }
+
+    </style>
+    <div id="app">
+      <template id="slider-text-template">
+        <div class="container">
+          <article class="slide type-text">
+            <div class="article-container">
+              <h1 class="slideTitle"></h1>
+              <p class="slideContent teflon"></p>
+            </div>
+          </article>
+        </div>
+      </template>
+      <template id="slider-image-template">
+        <div class="container">
+          <article class="slide type-image">
+            <div class="article-container">
+              <h1 class="slideTitle"></h1>
+              <div class="imgContainer">
+                <img class="slideContent" src=""/>
+              </div>
+            </div>
+          </article>
+        </div>
+      </template>
+    </div>
+    <script src="js/zine.js" charset="utf-8"></script>
+  </body>
+</html>

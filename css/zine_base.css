@@ -1,0 +1,104 @@
+
+.slide{
+  display: none;
+}
+
+.active {
+  display: block !important;
+}
+
+.slide-full {
+  width: 100%;
+  height: 100%;
+  display: none;
+  opacity: 1;
+  margin: 0 auto;
+  box-sizing: border-box;
+  -webkit-transition:width 300ms ease-in-out, height 300ms ease-in-out, top 300ms ease-in-out, zoom 300ms ease-in-out;
+  -moz-transition:width 300ms ease-in-out, height 300ms ease-in-out, top 300ms ease-in-out, zoom 300ms ease-in-out;
+  -o-transition:width 300ms ease-in-out, height 300ms ease-in-out, top 300ms ease-in-out, zoom 300ms ease-in-out;
+  transition:width 300ms ease-in-out, height 300ms ease-in-out, top 300ms ease-in-out, zoom 300ms ease-in-out;
+}
+
+.type-image.slide-full .article-container {
+
+  background-color: rgba(255,255,255,0);
+
+}
+
+.type-image.slide-full .article-container .slideTitle {
+display: none;
+
+}
+
+.type-text.slide-full .article-container {
+  border: rgba(162, 159, 0, 0.2) solid 1px;
+
+  background-color: rgba(255,255,255,0.1);
+
+}
+
+.slide-full .slideTitle {
+  font-size: 50px;
+  -webkit-transition:font-size 300ms ease-in-out;
+  -moz-transition:font-size 300ms ease-in-out;
+  -o-transition:font-size 300ms ease-in-out;
+  transition:font-size 300ms ease-in-out;
+
+}
+
+.slide-full .slideContent {
+  font-size: 30px;
+  -webkit-transition:font-size 300ms ease-in-out;
+  -moz-transition:font-size 300ms ease-in-out;
+  -o-transition:font-size 300ms ease-in-out;
+  transition:font-size 300ms ease-in-out;
+}
+
+.slide-full .article-container {
+  background-color: rgba(255,255,255,0.2);
+  top: 4em;
+  left: 6em;
+  right: 6em;
+  bottom: 4em;
+}
+
+.slide-full .active {
+  display: block;
+}
+
+.article-container {
+  position: absolute;
+  top: 10%;
+  left: 25%;
+  right: 25%;
+  bottom: 10%;
+  padding: 1em;
+  text-align: center;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.square {
+  display: block;
+  position: absolute;;
+  margin: inherit;
+  padding: 2.5em;
+  box-sizing: border-box;
+}
+
+.square .slideTitle{
+  font-size: 1.5vw;
+}
+
+.square .slideContent{
+  font-size: 0.6vw;
+}
+
+.imgContainer {
+  top: 0;
+  bottom: -18px;
+  left: 0;
+  right: 0;
+  position: inherit;
+}

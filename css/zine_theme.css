@@ -1,0 +1,169 @@
+body {
+  background-color: rgba(0, 0, 0, 0.9);
+  margin: 0;
+  padding: 0;
+  font-family: 'Droid Sans', sans-serif;
+  color: rgba(245, 245, 245, 0.75);
+  overflow: hidden;
+}
+
+#header {
+  /*background-color: red;*/
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+}
+
+#footer {
+  /*background-color: yellow;*/
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+}
+
+#left {
+  /*background-color: blue;*/
+  width: 100px;
+  left: 0;
+  top: 50px;
+  bottom: 50px;
+  position: absolute;
+  vertical-align: middle;
+  text-align: center;
+}
+
+#right {
+  /*background-color: green;*/
+  width: 100px;
+  right: 0;
+  top: 50px;
+  bottom: 50px;
+  position: absolute;
+  vertical-align: middle;
+  text-align: center;
+}
+
+#right p {
+  position: absolute;
+    top: 50%;
+    bottom: 50%;
+    left: 25%;
+}
+
+.next-icon,
+.prev-icon {
+  color: rgba(245, 245, 245, 0.2);
+}
+
+.next-icon :hover,
+.prev-icon :hover {
+  color: rgba(245, 245, 245, 0.75);
+}
+
+#left p {
+  position: absolute;
+    top: 50%;
+    bottom: 50%;
+    right: 25%;
+}
+
+#center {
+  /*background-color: purple;*/
+  width: calc(100% - 200px);
+  position: absolute;
+  left: 100px;
+  right: 100px;
+  top: 50px;
+  bottom: 50px;
+}
+
+#header-left{
+/*background-color: gold;*/
+width: 100px;
+left: 0;
+position: absolute;
+height: 50px;
+text-align: center;
+vertical-align: middle;
+}
+
+#header-right{
+/*background-color: grey;*/
+width: 100px;
+right: 0;
+position: absolute;
+height: 50px;
+text-align: center;
+vertical-align: middle;
+}
+
+#footer-left{
+/*background-color: gold;*/
+width: 100px;
+left: 0;
+position: absolute;
+height: 50px;
+text-align: center;
+vertical-align: middle;
+}
+
+#footer-left p {
+  margin: 0;
+}
+
+#footer-right{
+/*background-color: grey;*/
+width: 100px;
+right: 0;
+position: absolute;
+height: 50px;
+text-align: center;
+vertical-align: middle;
+}
+
+#pageIndicator{
+  /*background-color: purple;*/
+  position: absolute;
+  top:0;
+  left:0;
+  bottom: 0;
+  right: 0;
+  font-size: 25px;
+  line-height: 0;
+}
+
+#pageIndicator .currentPage{
+  font-weight: bolder;
+}
+
+#pageIndicator .currentPage::after{
+  font-weight: normal;
+  content: " /";
+}
+
+.page-container{
+  position: absolute;
+  left: 25px;
+  right: 25px;
+  bottom: 25px;
+  top: 25px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.page-container img{
+  width: auto;
+  height: 100%;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.material-icons {
+  cursor: pointer;
+  font-size: 50px !important;
+}
