@@ -2,156 +2,102 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Zine JS</title>
+    <title>Zine Layout</title>
+    <link rel="stylesheet" href="css/zine_base.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="css/zine_theme.css" media="screen" title="no title" charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
+    <script src="https://use.fontawesome.com/0c2ae74442.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body>
-    <style media="screen">
-      * {
-          overflow: hidden;
-          margin: 0;
-          padding: 0;
-       }
+    <section id="more-menu">
+      <span class="slot slot1">
+        <p>
+          <i class="material-icons">close</i>
+        </p>
+      </span>
+      <span class="slot slot2">
+        <p>
+          <i class="material-icons">share</i>
+        </p>
+      </span>
+      <span class="slot slot3">
+        <p>
+          <i class="material-icons">info</i>
+        </p>
+      </span>
 
-       body {
-         background-color: darkslategrey;
-       }
+    </section>
+    <div id="header">
+      <section id="header-left">
+        <p>
+          Zine JS
+        </p>
+      </section>
+      <section id="header-right">
+        <p id="layout-switcher">
+          <i class="material-icons">view_comfy</i>
+        </p>
+      </section>
+    </div>
+    <div id="left">
+      <p class="prev-icon">
+        <i class="material-icons">chevron_left</i>
+      </p>
+    </div>
+    <section id="center">
+      <div class="page-container">
+        <!-- <img src="http://www.webestools.com/ftp/ybouane/scripts_tutorials/gimp/border/image.png" alt="" /> -->
 
-      .slide{
-        display: none;
-      }
-
-      .active {
-        display: block !important;
-      }
-
-      .slide-full {
-        width: 100%;
-        height: 100%;
-        display: none;
-        opacity: 1;
-        position: absolute;
-        margin: 0 auto;
-        box-sizing: border-box;
-        -webkit-transition:width 300ms ease-in-out, height 300ms ease-in-out, top 300ms ease-in-out, zoom 300ms ease-in-out;
-        -moz-transition:width 300ms ease-in-out, height 300ms ease-in-out, top 300ms ease-in-out, zoom 300ms ease-in-out;
-        -o-transition:width 300ms ease-in-out, height 300ms ease-in-out, top 300ms ease-in-out, zoom 300ms ease-in-out;
-        transition:width 300ms ease-in-out, height 300ms ease-in-out, top 300ms ease-in-out, zoom 300ms ease-in-out;
-      }
-
-      .type-image.slide-full .article-container {
-        top: 2em;
-        left: 8em;
-        right: 8em;
-        bottom: 2em;
-        padding: 2.5em;
-      }
-
-      .type-text.slide-full .article-container {
-        top: 2em;
-        left: 4em;
-        right: 4em;
-        bottom: 2em;
-        padding: 2.5em;
-      }
-
-      .slide-full .slideTitle {
-        font-size: 6vw;
-        padding: 0.3em;
-        -webkit-transition:font-size 300ms ease-in-out;
-        -moz-transition:font-size 300ms ease-in-out;
-        -o-transition:font-size 300ms ease-in-out;
-        transition:font-size 300ms ease-in-out;
-
-      }
-
-      .slide-full .slideContent {
-        font-size: 3vw;
-        -webkit-transition:font-size 300ms ease-in-out;
-        -moz-transition:font-size 300ms ease-in-out;
-        -o-transition:font-size 300ms ease-in-out;
-        transition:font-size 300ms ease-in-out;
-      }
-
-      .slide-full .article-container {
-        background-color: rgba(255,255,255,0.75);
-        top: 4em;
-        left: 6em;
-        right: 6em;
-        bottom: 4em;
-      }
-
-      .slide-full .active {
-        display: block;
-      }
-
-      .article-container {
-        position: absolute;
-        top: 10%;
-        left: 25%;
-        right: 25%;
-        bottom: 10%;
-        padding: 1em;
-        text-align: center;
-        border-radius: 10px;
-        border: #A29F00 solid 2px;
-        overflow: hidden;
-        background-color: rgba(255,255,255,1);
-      }
-
-      .article-container img {
-        height: 97%;
-        padding: 2em;
-        box-sizing: border-box;
-      }
-
-      .square {
-        display: block;
-        position: absolute;;
-        margin: inherit;
-        padding: 2.5em;
-        box-sizing: border-box;
-      }
-
-      .square .slideTitle{
-        font-size: 1.5vw;
-      }
-
-      .square .slideContent{
-        font-size: 0.6vw;
-      }
-
-      .imgContainer {
-        top: 0;
-        bottom: -18px;
-        left: 0;
-        right: 0;
-        position: inherit;
-      }
-
-    </style>
-    <div id="app">
-      <template id="slider-text-template">
-        <div class="container">
-          <article class="slide type-text">
-            <div class="article-container">
-              <h1 class="slideTitle"></h1>
-              <p class="slideContent teflon"></p>
-            </div>
-          </article>
-        </div>
-      </template>
-      <template id="slider-image-template">
-        <div class="container">
-          <article class="slide type-image">
-            <div class="article-container">
-              <h1 class="slideTitle"></h1>
-              <div class="imgContainer">
-                <img class="slideContent" src=""/>
+        <div id="app">
+          <template id="slider-text-template">
+            <article class="slide type-text">
+              <div class="article-container">
+                <h1 class="slideTitle"></h1>
+                <p class="slideContent teflon"></p>
               </div>
-            </div>
-          </article>
+            </article>
+          </template>
+          <template id="slider-image-template">
+            <article class="slide type-image">
+              <div class="article-container">
+                <h1 class="slideTitle"></h1>
+                <div class="imgContainer">
+                  <img class="slideContent" src=""/>
+                  <section class="slider-info">
+                    <span>Title</span>
+                    <span>Autor</span>
+                    <span>Comment</span>
+                  </section>
+                </div>
+              </div>
+            </article>
+          </template>
         </div>
-      </template>
+
+
+
+      </div>
+    </section>
+    <div id="right">
+      <p class="next-icon">
+        <i class="material-icons">chevron_right</i>
+      </p>
+    </div>
+    <div id="footer">
+      <section id="footer-left">
+        <p>
+          <i class="material-icons">more_horiz</i>
+        </p>
+      </section>
+      <section id="footer-right">
+        <span id="pageIndicator">
+          <p>
+            <span class="currentPage">1</span>
+            <span class="totalPages">8</span>
+          </p>
+        </span>
+      </section>
     </div>
     <script src="js/zine.js" charset="utf-8"></script>
   </body>

@@ -117,7 +117,7 @@ function gotoPage(pageNumber) {
 }
 
 
-function translate( elem, x, y, count, total ) {
+function makeStack( elem, x, y, count, total ) {
   var promise = new Promise(function(resolve, reject) {
 
     var left = parseInt( css( elem, 'left' ), 10 ),
@@ -196,10 +196,9 @@ function createSlide(slideData){
 }
 
 function getScreenSize() {
-
   var screenSize = {
-    width: Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
-    height: Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+    width: document.querySelector('#center').offsetWidth,
+    height: document.querySelector('#center').offsetHeight
   }
 
   return screenSize;
@@ -234,23 +233,7 @@ function getSlideSize(allSlides) {
     var amountOfSlides = allSlides.length;
     var numberOfRows = roundToEven(amountOfSlides/4)+1;
     var numberOfLines = roundToEven(amountOfSlides/4)+1;
-
-    // for (var i = 0; i < roundToEven(amountOfSlides); i++) {
-    //   if (i % 6 === 0) {
-    //     numberOfRows++;
-    //   }
-    //   if (i % 4 === 0) {
-    //     numberOfLines++;
-    //   }
-    // }
     var screenSize = getScreenSize();
-    // console.log('-------------------------')
-    // console.log('numberOfLines: '+numberOfLines)
-    // console.log('numberOfRows: '+numberOfRows)
-    // console.log('w: '+screenSize.width)
-    // console.log('h: '+screenSize.height)
-    // console.log('-------------------------')
-
     var thumbnailWidth = screenSize.width/numberOfRows;
     var thumbnailHeight = screenSize.height/numberOfLines;
 
@@ -270,7 +253,6 @@ function getSlideSize(allSlides) {
 }
 
 function setSlidesPosition(coordinatesAndslideSize) {
-
   var promise = new Promise(function (resolve, reject) {
 
     var sheet = (function() {
@@ -291,11 +273,6 @@ function setSlidesPosition(coordinatesAndslideSize) {
   return promise;
 }
 
-/*
-  recibe todas las slides y el numero de rows y cols
-
-
-This function should return (x,y) */
 function getCoordinatesForSlides(allSlidesAndslideSize) {
   var slideSize = allSlidesAndslideSize.slideSize;
   var coordinates = [];
@@ -336,32 +313,36 @@ function getCoordinatesForSlides(allSlidesAndslideSize) {
   return promise;
 }
 
+var data = [];
 function start() {
   console.log("[1] ... Creating All Slides ...");
   createAllSlides()
     .then(function(allSlides) {
-      console.log(allSlides);
+      data['slides'] = allSlides;
       console.log("[2] ... All slides have been created ...");
       console.log("[3] ... Calculating the Slides Sizes ...");
-      getSlideSize(allSlides)
+      getSlideSize(data['slides'])
         .then(function(allSlidesAndslideSize){
-          console.log(allSlidesAndslideSize);
+          data['slideSize'] = allSlidesAndslideSize;
           console.log("[4] ... Getting Coordinates For Slides ...");
-          getCoordinatesForSlides(allSlidesAndslideSize)
+          getCoordinatesForSlides(data['slideSize'])
             .then(function(coordinatesAndslideSize){
+              data['coordinates'] = coordinatesAndslideSize;
               console.log(coordinatesAndslideSize)
               console.log("[5] ... The Coordinates Have Been Calculated ...");
               console.log("[6] ... Setting The Slides Positions In The Screen...");
-              setSlidesPosition(coordinatesAndslideSize).then(function(confirmation){
+              setSlidesPosition(data['coordinates']).then(function(confirmation){
+                data['confirmation'] = confirmation;
                 console.table(coordinatesAndslideSize.coordinates);
                 setTimeout(function () {
                   var allSlides = document.getElementsByClassName('square');
 
                   var screenSize = getScreenSize();
                   getSlideSize(allSlides).then(function(response){
+                    data['confirmation']
                     console.log(response)
                     for (var i = 0; i < allSlides.length; i++) {
-                      translate(allSlides[i], (screenSize.width/2)-(response.slideSize.width/2), (screenSize.height/2)-(response.slideSize.height/2), 300, allSlides.length)
+                      makeStack(allSlides[i], (screenSize.width/2)-(response.slideSize.width/2), (screenSize.height/2)-(response.slideSize.height/2), 300, allSlides.length)
                       .then(function(response) {
                         console.log(response)
                       })
@@ -394,6 +375,7 @@ function start() {
 
 function checkKey(e) {
   if (e.keyCode == '38') {
+    console.log(data)
   }
   else if (e.keyCode == '40') {
   }
@@ -407,9 +389,42 @@ function checkKey(e) {
 
 function getPageNumber () {
   var pageNumber = Number(document.getElementsByClassName('active')[0].id);
-  console.log(pageNumber)
   document.querySelector('.currentPage').innerHTML = pageNumber;
   return pageNumber;
+}
+
+function arrangeTileView() {
+  setSlidesPosition(data['coordinates']).then(function(confirmation){
+    var allSlides = document.getElementsByClassName('square');
+    var screenSize = getScreenSize();
+  }).catch(function(error){
+    console.log(error);
+  });
+  var allSlides = document.getElementsByClassName('slide');
+  for (var i = 0; i < allSlides.length; i++) {
+    allSlides[i].classList.remove('slide-full');
+    allSlides[i].classList.add('square');
+    allSlides[i].style.removeProperty('left');
+    allSlides[i].style.removeProperty('top');
+  }
+}
+
+function arrangeStackView() {
+  var allSlides = document.getElementsByClassName('slide');
+  for (var i = 0; i < allSlides.length; i++) {
+    allSlides[i].classList.add('slide-full');
+    allSlides[i].classList.remove('square');
+  }
+}
+
+function expandOrCollapse(name) {
+  if(document.querySelector(name).style.display === "block") {
+    document.querySelector(name).style.display = "none";
+    return false;
+  } else {
+    document.querySelector(name).style.display = "block";
+    return true;
+  }
 }
 
 (function() {
@@ -418,10 +433,37 @@ function getPageNumber () {
     // location.reload();
   };
   document.querySelector('.next-icon').addEventListener('click', function (event) {
-            gotoPage(getPageNumber()+1);
-        });
+    gotoPage(getPageNumber()+1);
+  });
   document.querySelector('.prev-icon').addEventListener('click', function (event) {
-            gotoPage(getPageNumber()-1);
-        });
+    gotoPage(getPageNumber()-1);
+  });
+  document.querySelector('#header-right i').addEventListener('click', function (event) {
+    console.log("switch-mode");
+    if(document.querySelector('#layout-switcher').classList.contains('active')){
+      document.querySelector('#layout-switcher').classList.remove('active');
+      document.querySelector('#layout-switcher i').innerHTML = "view_comfy";
+      document.querySelector('#pageIndicator').style.visibility = "visible";
+      document.querySelector('#left').style.visibility = "visible";
+      document.querySelector('#right').style.visibility = "visible";
+      arrangeStackView();
+    } else {
+      document.querySelector('#layout-switcher').classList.add('active');
+      document.querySelector('#layout-switcher i').innerHTML = "pageview";
+      document.querySelector('#pageIndicator').style.visibility = "hidden";
+      document.querySelector('#left').style.visibility = "hidden";
+      document.querySelector('#right').style.visibility = "hidden";
+      arrangeTileView();
+    }
+  });
+  document.querySelector('#more-menu').addEventListener('click', function (event) {
+    expandOrCollapse('#more-menu');
+  });
+  document.querySelector('#footer-left i').addEventListener('click', function (event) {
+    expandOrCollapse('#more-menu');
+  });
+  document.querySelector('.slot3').addEventListener('click', function (event) {
+    expandOrCollapse('.slider-info');
+  });
   document.onkeydown = checkKey;
 })();
