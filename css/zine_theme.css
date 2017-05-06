@@ -8,7 +8,6 @@ body {
 }
 
 #header {
-  /*background-color: red;*/
   position: absolute;
   top: 0;
   left: 0;
@@ -17,7 +16,6 @@ body {
 }
 
 #footer {
-  /*background-color: yellow;*/
   position: absolute;
   bottom: 0;
   left: 0;
@@ -26,7 +24,6 @@ body {
 }
 
 #left {
-  /*background-color: blue;*/
   width: 100px;
   left: 0;
   top: 50px;
@@ -72,7 +69,6 @@ body {
 }
 
 #center {
-  /*background-color: purple;*/
   width: calc(100% - 200px);
   position: absolute;
   left: 100px;
@@ -82,7 +78,6 @@ body {
 }
 
 #header-left{
-/*background-color: gold;*/
 width: 100px;
 left: 0;
 position: absolute;
@@ -93,23 +88,22 @@ font-weight: bolder;
 }
 
 #header-right{
-/*background-color: grey;*/
-width: 100px;
-right: 0;
-position: absolute;
-height: 50px;
-text-align: center;
-vertical-align: middle;
+  z-index: 10;
+  width: 100px;
+  right: 0;
+  position: absolute;
+  height: 50px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 #footer-left{
-/*background-color: gold;*/
-width: 100px;
-left: 0;
-position: absolute;
-height: 50px;
-text-align: center;
-vertical-align: middle;
+  width: 100px;
+  left: 0;
+  position: absolute;
+  height: 50px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 #footer-left p {
@@ -117,17 +111,15 @@ vertical-align: middle;
 }
 
 #footer-right{
-/*background-color: grey;*/
-width: 100px;
-right: 0;
-position: absolute;
-height: 50px;
-text-align: center;
-vertical-align: middle;
+  width: 100px;
+  right: 0;
+  position: absolute;
+  height: 50px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 #pageIndicator{
-  /*background-color: purple;*/
   position: absolute;
   top:0;
   left:0;
@@ -167,4 +159,17 @@ vertical-align: middle;
 .material-icons {
   cursor: pointer;
   font-size: 50px !important;
+}
+
+.square.active {
+  border-radius: 20px;
+  border: rgba(255, 192, 203, 0.12) 1px solid !important;
+}
+
+.slide-full .article-container {
+  background-color: rgba(255,255,255,0.2);
+  top: 4em;
+  left: 6em;
+  right: 6em;
+  bottom: 4em;
 }

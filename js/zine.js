@@ -345,6 +345,7 @@ function start() {
                       makeStack(allSlides[i], (screenSize.width/2)-(response.slideSize.width/2), (screenSize.height/2)-(response.slideSize.height/2), 300, allSlides.length)
                       .then(function(response) {
                         console.log(response)
+                        data.currentMode = 'ready';
                       })
                       .catch(function(error) {
                         console.log(error)
@@ -393,6 +394,12 @@ function getPageNumber () {
   return pageNumber;
 }
 
+function setBackground() {
+  console.log(document.body);
+  var background = 'imgs/backgrounds/noche2.jpg';
+  document.body.setAttribute("style", "background: url('"+background+"') no-repeat center center fixed;");
+}
+
 function arrangeTileView() {
   setSlidesPosition(data['coordinates']).then(function(confirmation){
     var allSlides = document.getElementsByClassName('square');
@@ -428,7 +435,9 @@ function expandOrCollapse(name) {
 }
 
 (function() {
+  data.currentMode = 'processing';
   start();
+  setBackground();
   window.onresize = function(event) {
     // location.reload();
   };
@@ -439,21 +448,25 @@ function expandOrCollapse(name) {
     gotoPage(getPageNumber()-1);
   });
   document.querySelector('#header-right i').addEventListener('click', function (event) {
-    console.log("switch-mode");
-    if(document.querySelector('#layout-switcher').classList.contains('active')){
-      document.querySelector('#layout-switcher').classList.remove('active');
-      document.querySelector('#layout-switcher i').innerHTML = "view_comfy";
-      document.querySelector('#pageIndicator').style.visibility = "visible";
-      document.querySelector('#left').style.visibility = "visible";
-      document.querySelector('#right').style.visibility = "visible";
-      arrangeStackView();
+    if(data.currentMode === "ready") {
+      console.log("switch-mode");
+      if(document.querySelector('#layout-switcher').classList.contains('active')){
+        document.querySelector('#layout-switcher').classList.remove('active');
+        document.querySelector('#layout-switcher i').innerHTML = "view_comfy";
+        document.querySelector('#pageIndicator').style.visibility = "visible";
+        document.querySelector('#left').style.visibility = "visible";
+        document.querySelector('#right').style.visibility = "visible";
+        arrangeStackView();
+      } else {
+        document.querySelector('#layout-switcher').classList.add('active');
+        document.querySelector('#layout-switcher i').innerHTML = "pageview";
+        document.querySelector('#pageIndicator').style.visibility = "hidden";
+        document.querySelector('#left').style.visibility = "hidden";
+        document.querySelector('#right').style.visibility = "hidden";
+        arrangeTileView();
+      }
     } else {
-      document.querySelector('#layout-switcher').classList.add('active');
-      document.querySelector('#layout-switcher i').innerHTML = "pageview";
-      document.querySelector('#pageIndicator').style.visibility = "hidden";
-      document.querySelector('#left').style.visibility = "hidden";
-      document.querySelector('#right').style.visibility = "hidden";
-      arrangeTileView();
+      console.log("[switch-mode] NOT READY");
     }
   });
   document.querySelector('#more-menu').addEventListener('click', function (event) {

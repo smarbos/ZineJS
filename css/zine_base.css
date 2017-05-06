@@ -62,13 +62,6 @@ display: none;
   transition:font-size 300ms ease-in-out;
 }
 
-.slide-full .article-container {
-  background-color: rgba(255,255,255,0.2);
-  top: 4em;
-  left: 6em;
-  right: 6em;
-  bottom: 4em;
-}
 
 .slide-full.active {
   display: block;
@@ -86,13 +79,17 @@ display: none;
   overflow: hidden;
 }
 
+.slide-full.type-text .article-container {
+  overflow: overlay;
+}
+
 .square {
   display: block;
   position: absolute;
   margin: inherit;
   padding: 2.5em;
   box-sizing: border-box;
-  background-color: 
+  background-color:
 }
 
 .square .slideTitle{
@@ -116,12 +113,11 @@ display: none;
 }
 
 #more-menu {
-    transition: visibility 0s, opacity 0.5s linear;
+  transition: visibility 0s, opacity 0.5s linear;
   background-color: #191919;
   display: none;
   position: absolute;
   bottom: 0;
-  /*background-color: rebeccapurple;*/
   height: 50px;
   left: 0;
   width: 300px;
