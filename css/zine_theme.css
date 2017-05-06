@@ -34,7 +34,6 @@ body {
 }
 
 #right {
-  /*background-color: green;*/
   width: 100px;
   right: 0;
   top: 50px;
@@ -78,13 +77,13 @@ body {
 }
 
 #header-left{
-width: 100px;
-left: 0;
-position: absolute;
-height: 50px;
-text-align: center;
-vertical-align: middle;
-font-weight: bolder;
+  width: 100px;
+  left: 0;
+  position: absolute;
+  height: 50px;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bolder;
 }
 
 #header-right{

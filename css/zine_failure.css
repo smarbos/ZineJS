@@ -11,6 +11,7 @@ body {
   font-family: 'vcr_osd_monoregular' !important;
   color: #C102D1;
   text-shadow: 2px 2px rgba(0,0,0,0.75);
+  cursor: crosshair;
 }
 
 @font-face {
@@ -101,6 +102,7 @@ text-align: center;
 vertical-align: middle;
 font-weight: bolder;
 font-size: 18px;
+cursor: wait;
 }
 
 #header-right{
@@ -261,4 +263,19 @@ font-size: 18px;
 
 ::-webkit-scrollbar-thumb{
   border-radius: 0 10px 10px 0;
+}
+
+
+.glitch-paragraph {
+  display: inline;
+  position: relative;
+  top: 10px;
+  left: 10px;
+  zoom: 1.1;
+  opacity: 0.9;
+  color: #19132D;
+}
+
+#more-menu {
+  background-color: none !important;
 }

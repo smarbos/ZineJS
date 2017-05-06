@@ -79,7 +79,7 @@ display: none;
   overflow: hidden;
 }
 
-.slide-full.type-text .article-container {
+.slide-full.type .article-container {
   overflow: overlay;
 }
 
@@ -114,7 +114,6 @@ display: none;
 
 #more-menu {
   transition: visibility 0s, opacity 0.5s linear;
-  background-color: #191919;
   display: none;
   position: absolute;
   bottom: 0;

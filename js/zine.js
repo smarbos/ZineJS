@@ -128,7 +128,6 @@ function makeStack( elem, x, y, count, total ) {
         delay = 10;
 
     function loop() {
-      // console.log(count)
       if ( i >= count ) {
         elem.style.left = 0;
         elem.style.top = 0;
@@ -196,13 +195,12 @@ function createSlide(slideData){
 }
 
 function getScreenSize() {
-  var screenSize = {
+  return {
     width: document.querySelector('#center').offsetWidth,
     height: document.querySelector('#center').offsetHeight
-  }
-
-  return screenSize;
+  };
 }
+
 function createAllSlides () {
   var allSlides = [];
   var promise = new Promise(function(resolve, reject) {
@@ -315,6 +313,7 @@ function getCoordinatesForSlides(allSlidesAndslideSize) {
 
 var data = [];
 function start() {
+  document.querySelector('#more-menu').style.display = "none";
   console.log("[1] ... Creating All Slides ...");
   createAllSlides()
     .then(function(allSlides) {
@@ -379,6 +378,7 @@ function checkKey(e) {
     console.log(data)
   }
   else if (e.keyCode == '40') {
+    removeParagraphGlitches()
   }
   else if (e.keyCode == '37') {
      gotoPage(getPageNumber()-1);
@@ -395,7 +395,6 @@ function getPageNumber () {
 }
 
 function setBackground() {
-  console.log(document.body);
   var background = 'imgs/backgrounds/noche2.jpg';
   document.body.setAttribute("style", "background: url('"+background+"') no-repeat center center fixed;");
 }
@@ -425,19 +424,98 @@ function arrangeStackView() {
 }
 
 function expandOrCollapse(name) {
-  if(document.querySelector(name).style.display === "block") {
-    document.querySelector(name).style.display = "none";
-    return false;
-  } else {
-    document.querySelector(name).style.display = "block";
-    return true;
-  }
+  var status = "null";
+  var promise = new Promise(function(resolve, reject) {
+    if(document.querySelector(name)){
+      if(document.querySelector(name).style.display === "none") {
+        document.querySelector(name).style.display = "block";
+        resolve(true);
+      } else {
+        document.querySelector(name).style.display = "none";
+        resolve(false);
+      }
+    } else {
+      reject("[expandOrCollapse] Can't find element "+name);
+    }
+  });
+
+  return promise;
+}
+
+function removeParagraphGlitches() {
+  console.log("[removeParagraphGlitches]")
+  var promise = new Promise(function(resolve, reject) {
+    for (var i = 0; i < data.slides.length; i++) {
+      document.querySelector(".slide_"+i+".type-text .article-container .slideContent span").classList.remove("glitch-paragraph");
+      if(i === data.slides.length-1){
+        console.log("aca termino: "+i)
+      }
+    }
+  });
+  return promise;
+}
+
+function createParagraphGlitches() {
+  var promise = new Promise(function (resolve, reject) {
+    var textSlides = document.getElementsByClassName('slideContent');
+    for (var slideCounter = 0; slideCounter < textSlides.length; slideCounter++) {
+      console.log(textSlides[slideCounter])
+      var oldParagraph = textSlides[slideCounter].innerText;
+      var oldParagraphParts = oldParagraph.split(".") || [];
+      var newParagraphContent = "";
+      for (var partNumber = 0; partNumber < oldParagraphParts.length; partNumber++) {
+        newParagraphContent += "<span class='glitch-paragraph'>"+oldParagraphParts[partNumber]+"</span>";
+        console.log(oldParagraphParts[partNumber])
+        if(partNumber === oldParagraphParts.length-1){
+          // console.log("Finished paragraph")
+          // console.log(newParagraphContent)
+          // console.log("ss-----------")
+          textSlides[slideCounter].innerHTML = newParagraphContent;
+        }
+      }
+      if(slideCounter === textSlides.length-1){
+        resolve(true);
+      }
+    }
+  });
+
+return promise;
+}
+
+function applyGlitchStyleToGlitchSpan(glitchSpanNode) {
+  var promise = new Promise(function(resolve, reject) {
+    var randomNumber = Math.floor(Math.random() * 100) + 1;
+    var randomZoomNumber = Math.floor(Math.random() * 9) + 1;
+    glitchSpanNode.children[0].setAttribute("style", "top: "+randomNumber+"px; left: "+randomNumber+"px; zoom: 1."+randomZoomNumber+";")
+    resolve(glitchSpanNode)
+  });
+
+  return promise;
+}
+
+function glitchLoop(clock, delay) {
+  setTimeout(function () {
+    console.log("[-glitchLoop-]")
+    if(clock === true){
+      createParagraphGlitches()
+        .then(function(response) {
+          glitchLoop(true, 900);
+        })
+        .catch(function(error){
+          console.log(error)
+        });
+    } else {
+      removeParagraphGlitches();
+      glitchLoop(false, 2400);
+    }
+  }, delay);
 }
 
 (function() {
   data.currentMode = 'processing';
   start();
   setBackground();
+  glitchLoop(true, 300);
   window.onresize = function(event) {
     // location.reload();
   };
@@ -449,7 +527,6 @@ function expandOrCollapse(name) {
   });
   document.querySelector('#header-right i').addEventListener('click', function (event) {
     if(data.currentMode === "ready") {
-      console.log("switch-mode");
       if(document.querySelector('#layout-switcher').classList.contains('active')){
         document.querySelector('#layout-switcher').classList.remove('active');
         document.querySelector('#layout-switcher i').innerHTML = "view_comfy";
@@ -470,10 +547,25 @@ function expandOrCollapse(name) {
     }
   });
   document.querySelector('#more-menu').addEventListener('click', function (event) {
-    expandOrCollapse('#more-menu');
+    expandOrCollapse('#more-menu')
+      .then(function (resolve) {
+        document.querySelector('#footer-left i').style.visibility = "visible";
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
   });
   document.querySelector('#footer-left i').addEventListener('click', function (event) {
-    expandOrCollapse('#more-menu');
+    expandOrCollapse('#more-menu')
+      .then(function (resolve) {
+        console.log(resolve);
+        if(resolve) {
+          document.querySelector('#footer-left i').style.visibility = "hidden";
+        }
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
   });
   document.querySelector('.slot3').addEventListener('click', function (event) {
     expandOrCollapse('.slider-info');
